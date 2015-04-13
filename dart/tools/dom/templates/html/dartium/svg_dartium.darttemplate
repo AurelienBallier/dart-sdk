@@ -1,0 +1,20 @@
+// DO NOT EDIT
+// Auto-generated dart:svg library.
+
+library dart.dom.svg;
+
+import 'dart:async';
+import 'dart:collection';
+import 'dart:_internal' hide deprecated;
+import 'dart:html';
+import 'dart:html_common';
+import 'dart:nativewrappers';
+import 'dart:_blink' as _blink;
+
+part '$AUXILIARY_DIR/shared_SVGFactoryProviders.dart';
+
+$!GENERATED_DART_FILES
+// FIXME: Can we make this private?
+final svgBlinkMap = {
+$!TYPE_MAP
+};

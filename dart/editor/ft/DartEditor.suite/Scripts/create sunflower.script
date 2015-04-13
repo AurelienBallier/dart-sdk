@@ -1,0 +1,4 @@
+﻿util.init
+util.openWelcomePage
+Click "sunflower icon"
+util.xWait 10

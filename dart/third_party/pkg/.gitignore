@@ -1,0 +1,11 @@
+barback-*
+fake_async
+async_await
+petitparser
+source_maps-*
+
+packages
+pubspec.lock
+.project
+.children
+out

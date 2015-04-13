@@ -1,0 +1,382 @@
+# Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
+# for details. All rights reserved. Use of this source code is governed by a
+# BSD-style license that can be found in the LICENSE file.
+
+event_test: Skip  # Issue 1996
+interactive_test: Skip # Must be run manually.
+dromaeo_smoke_test: Skip # Issue 14521, 8257
+
+[ $compiler == none && ($runtime == drt || $runtime == dartium || $runtime == ContentShellOnAndroid) ]
+custom/attribute_changed_callback_test/unsupported_on_polyfill: Fail # Issue 18931 (Disabled for Chrome 35 roll)
+custom/document_register_basic_test: RuntimeError # Issue 20813
+fontface_loaded_test: Skip # Issue 21359
+form_data_test/functional: Skip # Issue 19726
+indexeddb_1_test/functional: Skip # Issue 19512 (timing out)
+indexeddb_4_test: Skip # Issue 19726
+mouse_event_test: Fail # Issue 20437
+storage_quota_test/missingenumcheck: Fail
+
+[ $compiler == none && $mode == debug && ($runtime == drt || $runtime == dartium || $runtime == ContentShellOnAndroid) ]
+datalistelement_test: Skip # Issue 20540
+
+[ $compiler == dart2js && $csp ]
+custom/js_custom_test: Fail # Issue 14643
+custom/element_upgrade_test: Fail # Issue 17298
+
+[ $compiler == dart2js && $browser ]
+custom/created_callback_test: Fail # Support for created constructor.
+fontface_loaded_test: Fail # Support for promises.
+storage_quota_test: Fail # Support for promises.
+
+[ $compiler == dart2js && ($runtime == safari || $runtime == safarimobilesim || $runtime == ff  || $ie) ]
+custom/entered_left_view_test/viewless_document: Fail # Polyfill does not handle this
+
+[ $compiler == none && ($runtime == drt || $runtime == dartium) && $mode == debug && $system == macos]
+audiobuffersourcenode_test: Pass, Fail, Crash # http://crbug.com/256601
+
+[ $compiler == none && $runtime == dartium && $system == macos]
+canvasrenderingcontext2d_test/drawImage_video_element_dataUrl: Pass,Fail # Issue 11834
+
+[ $compiler == none && ($runtime == drt || $runtime == dartium || $runtime == ContentShellOnAndroid) ]
+# postMessage in dartium always transfers the typed array buffer, never a view
+postmessage_structured_test/typed_arrays: Fail
+async_test: Fail # Background timers not implemented.
+keyboard_event_test: Fail # Issue 13902
+isolates_test: Fail # Issue 13921
+indexeddb_3_test: Skip # Issue 19578.  Timeouts and RuntimeError
+
+[ $compiler == none && ($runtime == drt || $runtime == dartium || $runtime == ContentShellOnAndroid) && $mode == debug ]
+websocket_test/websocket: Skip # Issue 17666
+canvasrenderingcontext2d_test/drawImage_video_element_dataUrl: Skip # Issue 17666
+
+[ $compiler == none && $runtime == ContentShellOnAndroid ]
+audiobuffersourcenode_test/functional: Skip # Causes the following (next) test to time out.  Issue 19127
+audiocontext_test/functional: Skip # Causes the following (next) test to time out.  Issue 19127
+canvasrenderingcontext2d_test/drawImage_video_element: RuntimeError # Issue 19127
+canvasrenderingcontext2d_test/drawImage_video_element_dataUrl: Pass, Fail # Issue 20524
+
+element_offset_test/offset: RuntimeError # Issue 17550
+request_animation_frame_test: Skip # Times out, and also passes while taking 4.00 minutes. Issue 19127.
+fileapi_test/fileEntry: Pass, RuntimeError # Issue 20488
+fileapi_test/getFile: Pass, RuntimeError # Issue 20488
+indexeddb_5_test: Pass, RuntimeError # Issue 21262
+
+[ $compiler == none && $runtime == drt && $system == windows ]
+worker_test/functional: Pass, Crash # Issue 9929.
+touchevent_test/supported: Pass, Fail # Issue 17061
+
+[ $compiler == dart2js && $runtime == chromeOnAndroid ]
+crypto_test/functional: Pass, Slow # TODO(dart2js-team): Please triage this failure.
+input_element_test/supported_datetime-local: Pass, Slow # TODO(dart2js-team): Please triage this failure.
+
+fileapi_test/entry: Fail, Pass # TODO(dart2js-team): Please triage this failure.
+fileapi_test/fileEntry: Fail, Pass # TODO(dart2js-team): Please triage this failure.
+fileapi_test/getDirectory: Fail, Pass # TODO(dart2js-team): Please triage this failure.
+fileapi_test/getFile: Fail, Pass # TODO(dart2js-team): Please triage this failure.
+
+audiocontext_test/supported: RuntimeError # TODO(dart2js-team): Please triage this failure.
+audiobuffersourcenode_test/supported: Fail # TODO(dart2js-team): Please triage this failure.
+canvasrenderingcontext2d_test/drawImage_video_element: Fail # TODO(dart2js-team): Please triage this failure.
+canvasrenderingcontext2d_test/drawImage_video_element_dataUrl: Fail # TODO(dart2js-team): Please triage this failure.
+canvasrenderingcontext2d_test/fillText: Fail # TODO(dart2js-team): Please triage this failure.
+element_types_test/supported_datalist: Fail # TODO(dart2js-team): Please triage this failure.
+input_element_test/supported_week: Fail # TODO(dart2js-team): Please triage this failure.
+media_stream_test/supported_media: Fail # TODO(dart2js-team): Please triage this failure.
+rtc_test/supported: Fail # TODO(dart2js-team): Please triage this failure.
+speechrecognition_test/supported: Fail # TODO(dart2js-team): Please triage this failure.
+speechrecognition_test/types: Fail # TODO(dart2js-team): Please triage this failure.
+xhr_test/json: Fail # TODO(dart2js-team): Please triage this failure.
+
+[ $runtime == safarimobilesim ]
+element_offset_test/offset: RuntimeError # Issue 18573
+element_types_test/supported_meter: RuntimeError # Issue 18573
+
+[ $runtime == chrome ]
+touchevent_test/supported: Pass, Fail # Issue 17061
+xhr_cross_origin_test: Pass, Fail # Issue 11884
+xhr_test: Pass, Fail # Issue 11884
+
+[$runtime == drt || $runtime == dartium || $runtime == chrome || $runtime == chromeOnAndroid || $runtime == ContentShellOnAndroid ]
+webgl_1_test: Pass, Fail # Issue 8219
+
+[ $compiler == none && ($runtime == drt || $runtime == dartium || $runtime == ContentShellOnAndroid) ]
+worker_api_test: Fail # http://dartbug.com/10223
+
+[ $compiler == none && ($runtime == drt || $runtime == dartium) && $system == windows]
+websql_test: Skip # Issue 4941: stderr contains a backtrace.
+
+[ $compiler == none && ($runtime == drt || $runtime == dartium) && $mode == debug]
+websql_test: Fail, Pass # Issue 4941: stderr contains a backtrace.
+native_gc_test: Pass, Slow
+
+[ $compiler == dart2js && $runtime == drt && $system == macos]
+audiobuffersourcenode_test: Pass, Fail
+
+[$runtime == ie10 || $runtime == ie11]
+indexeddb_5_test: Fail # Issue 12893
+js_test: Fail # Issue 14246
+element_test/click: Fail                # IE does not support firing this event.
+serialized_script_value_test: Fail
+websocket_test/websocket: Fail # TODO(efortuna): Issue 7875.
+canvasrenderingcontext2d_test/drawImage_video_element: Fail # IE does not support drawImage w/ video element
+canvasrenderingcontext2d_test/drawImage_video_element_dataUrl: Fail # IE does not support drawImage w/ video element
+no_linked_scripts_htmltest: Skip # Times out on IE.  Issue 21537
+scripts_htmltest: Skip # Times out on IE.  Issue 21537
+
+[$runtime == ie10 ]
+# IE10 Feature support statuses-
+# All changes should be accompanied by platform support annotation changes.
+audiobuffersourcenode_test/supported: Fail
+audiocontext_test/supported: Fail
+crypto_test/supported: Fail
+css_test/supportsPointConversions: Fail
+document_test/supports_cssCanvasContext: Fail
+element_types_test/supported_content: Fail
+element_types_test/supported_details: Fail
+element_types_test/supported_keygen: Fail
+element_types_test/supported_meter: Fail
+element_types_test/supported_output: Fail
+element_types_test/supported_shadow: Fail
+element_types_test/supported_template: Fail
+fileapi_test/supported: Fail
+history_test/supported_HashChangeEvent: Fail
+indexeddb_1_test/supportsDatabaseNames: Fail
+input_element_test/supported_date: Fail
+input_element_test/supported_datetime-local: Fail
+input_element_test/supported_month: Fail
+input_element_test/supported_time: Fail
+input_element_test/supported_week: Fail
+media_stream_test/supported_MediaStreamEvent: Fail
+media_stream_test/supported_MediaStreamTrackEvent: Fail
+media_stream_test/supported_media: Fail
+mutationobserver_test/supported: Fail
+rtc_test/supported: Fail
+shadow_dom_test/supported: Fail
+speechrecognition_test/supported: Fail
+svgelement_test/supported_altGlyph: Fail
+svgelement_test/supported_animate: Fail
+svgelement_test/supported_animateMotion: Fail
+svgelement_test/supported_animateTransform: Fail
+svgelement_test/supported_foreignObject: Fail
+svgelement_test/supported_set: Fail
+touchevent_test/supported: Fail
+webgl_1_test/supported: Fail
+websql_test/supported: Fail
+xhr_test/json: Fail # IE10 returns string, not JSON object
+xhr_test/supported_overrideMimeType: Fail
+xsltprocessor_test/supported: Fail
+worker_test/functional: Fail # IE uses incorrect security context for Blob URIs.
+transferables_test: Fail # Issue 9846
+
+[ $runtime == ie11 ]
+custom/document_register_type_extensions_test/single-parameter: Fail # Issue 13193.
+canvasrenderingcontext2d_test/arc: Pass, Fail # Pixel unexpected value. Please triage this failure.
+node_validator_test: Pass, RuntimeError # Issues 20657, 20659.
+worker_test/functional: Pass, Fail # Issues 20659.
+transferables_test: Pass, Fail # Issues 20659.
+
+# IE11 Feature support statuses-
+# These results not yet noted in platform support annotations.
+# All changes should be accompanied by platform support annotation changes.
+audiobuffersourcenode_test/supported: Fail
+audiocontext_test/supported: Fail
+crypto_test/supported: Fail
+css_test/supportsPointConversions: Fail
+document_test/supports_cssCanvasContext: Fail
+element_types_test/supported_content: Fail
+element_types_test/supported_details: Fail
+element_types_test/supported_keygen: Fail
+element_types_test/supported_meter: Fail
+element_types_test/supported_output: Fail
+element_types_test/supported_shadow: Fail
+element_types_test/supported_template: Fail
+fileapi_test/supported: Fail
+history_test/supported_HashChangeEvent: Fail
+indexeddb_1_test/supportsDatabaseNames: Fail
+input_element_test/supported_date: Fail
+input_element_test/supported_datetime-local: Fail
+input_element_test/supported_month: Fail
+input_element_test/supported_time: Fail
+input_element_test/supported_week: Fail
+media_stream_test/supported_MediaStreamEvent: Fail
+media_stream_test/supported_MediaStreamTrackEvent: Fail
+media_stream_test/supported_media: Fail
+rtc_test/supported: Fail
+shadow_dom_test/supported: Fail
+speechrecognition_test/supported: Fail
+svgelement_test/supported_altGlyph: Fail
+svgelement_test/supported_animate: Fail
+svgelement_test/supported_animateMotion: Fail
+svgelement_test/supported_animateTransform: Fail
+svgelement_test/supported_foreignObject: Fail
+svgelement_test/supported_set: Fail
+touchevent_test/supported: Fail
+webgl_1_test/functional: Fail
+websql_test/supported: Fail
+xhr_test/json: Fail # IE10 returns string, not JSON object
+xsltprocessor_test/supported: Fail
+
+[ $runtime == ie10 ]
+custom/document_register_type_extensions_test/construction: Fail # Issue 13193
+custom/element_upgrade_test: Fail # Issue 18247
+worker_api_test: Fail # IE does not support URL.createObjectURL in web workers.
+
+[ $compiler == dart2js && $runtime == drt && $unchecked ]
+audiocontext_test/functional: Pass, Fail
+
+[ $runtime == safari || $runtime == safarimobilesim ]
+worker_api_test: Skip # Issue 13221
+webgl_1_test: Pass, Fail # Issue 8219
+canvasrenderingcontext2d_test/drawImage_video_element: Fail # Safari does not support drawImage w/ video element
+canvasrenderingcontext2d_test/drawImage_video_element_dataUrl: Fail # Safari does not support drawImage w/ video element
+audiocontext_test/functional: Fail # Issue 14354
+
+# Safari Feature support statuses-
+# All changes should be accompanied by platform support annotation changes.
+element_types_test/supported_content: Fail
+element_types_test/supported_datalist: Fail
+element_types_test/supported_shadow: Fail
+fileapi_test/supported: Fail
+indexeddb_1_test/supportsDatabaseNames: Fail
+media_stream_test/supported_MediaStreamEvent: Fail
+media_stream_test/supported_MediaStreamTrackEvent: Fail
+media_stream_test/supported_media: Fail
+performance_api_test/supported: Fail
+rtc_test/supported: Fail
+shadow_dom_test/supported: Fail
+speechrecognition_test/supported: Fail
+
+[ ($runtime == safari && $builder_tag == mac10_7) || $runtime == safarimobilesim ]
+indexeddb_1_test/supported: Fail
+element_types_test/supported_template: Fail
+xhr_test/json: Fail # Safari doesn't support JSON response type
+
+[ $runtime == safari ]
+input_element_test/supported_month: RuntimeError
+input_element_test/supported_time: RuntimeError
+input_element_test/supported_week: RuntimeError
+input_element_test/supported_date: Fail
+input_element_test/supported_datetime-local: Fail
+touchevent_test/supported: Fail
+
+[ $runtime == safari && ($builder_tag == mac10_8 || $builder_tag == mac10_9) ]
+indexeddb_1_test/functional: RuntimeError # Issue 21433
+indexeddb_2_test: RuntimeError # Issue 21433
+indexeddb_4_test: RuntimeError # Issue 21433
+indexeddb_5_test: RuntimeError # Issue 21433
+wheelevent_test: RuntimeError # Issue 21434
+js_test: RuntimeError # Issue 21434
+
+[ $runtime == opera ]
+blob_constructor_test: Fail
+canvas_test: Fail
+canvas_test: Pass,Fail
+cssstyledeclaration_test: Fail
+document_test/document: Fail # Issue: 7413
+element_add_test: Fail
+element_constructor_1_test: Fail
+element_test/children: Fail # Issue: 7413
+element_test/constructors: Fail
+element_test/elements: Fail
+element_test/eventListening: Crash
+element_test/eventListening: Fail # Issue: 7413
+element_test/queryAll: Fail
+fileapi_test: Skip # Timeout.
+form_data_test: Fail # Issue: 7413
+htmlelement_test: Fail
+isolates_test: Skip # Timeout.
+keyboard_event_test: Fail # Issue: 7413
+serialized_script_value_test: Fail
+typed_arrays_arraybuffer_test: Fail
+url_test: Fail
+
+# Opera Feature support statuses-
+# All changes should be accompanied by platform support annotation changes.
+audiobuffersourcenode_test/supported: Fail
+audiocontext_test/supported: Fail
+crypto_test/supported: Fail
+css_test/supportsPointConversions: Fail
+document_test/supports_cssCanvasContext: Fail
+element_types_test/supported_template: Fail
+indexeddb_1_test/supported: Fail
+indexeddb_1_test/supportsDatabaseNames: Fail
+mutationobserver_test/supported: Fail
+performance_api_test/supported: Fail
+speechrecognition_test/supported: Fail
+websql_test/supported: Fail
+
+[ $runtime == ff ]
+xhr_test/xhr: Pass, Fail # Issue 11602
+dart_object_local_storage_test: Skip  # sessionStorage NS_ERROR_DOM_NOT_SUPPORTED_ERR
+webgl_1_test: Pass, Fail   # Issue 8219
+canvasrenderingcontext2d_test/drawImage_video_element_dataUrl: Fail # Firefox does not like dataUrl videos for drawImage
+canvasrenderingcontext2d_test/drawImage_video_element: RuntimeError # Issue 21526
+
+# Firefox Feature support statuses-
+# All changes should be accompanied by platform support annotation changes.
+css_test/supportsPointConversions: Fail
+document_test/supports_cssCanvasContext: Fail
+element_types_test/supported_details: Fail
+element_types_test/supported_embed: Fail
+element_types_test/supported_keygen: Fail
+element_types_test/supported_object: Fail
+fileapi_test/supported: Fail
+indexeddb_1_test/supportsDatabaseNames: Fail
+input_element_test/supported_date: Fail
+input_element_test/supported_datetime-local: Fail
+input_element_test/supported_month: Fail
+input_element_test/supported_time: Fail
+input_element_test/supported_week: Fail
+media_stream_test/supported_MediaStreamEvent: Fail
+media_stream_test/supported_MediaStreamTrackEvent: Fail
+shadow_dom_test/supported: Fail
+speechrecognition_test/supported: Fail
+touchevent_test/supported: Fail
+websql_test/supported: Fail
+
+# 'html' tests import the HTML library, so they only make sense in
+# a browser environment.
+[ $runtime == vm ]
+*: Skip
+
+[ $compiler == dart2js && ($runtime == drt || $runtime == ff) ]
+request_animation_frame_test: Skip # Async test hangs.
+
+[ $compiler == dart2js && $csp && ($runtime == drt || $runtime == safari || $runtime == ff || $runtime == chrome || $runtime == chromeOnAndroid) ]
+# Note: these tests are all injecting scripts by design.  This is not allowed under CSP.
+event_customevent_test: Fail       # Test cannot run under CSP restrictions.
+js_interop_1_test: Skip            # Test cannot run under CSP restrictions (times out).
+js_test: Skip                      # Test cannot run under CSP restrictions (times out).
+postmessage_structured_test: Skip  # Test cannot run under CSP restrictions (times out).
+
+[ $compiler == dart2js && ($runtime == drt || $runtime ==chrome) ]
+wheelevent_test: Fail # http://dartbug.com/12958
+
+[ $runtime == dartium && ($system == macos || $system == windows || $system == linux)]
+# Desktop operation systems do not support touch events on chrome 34 dartium.
+touchevent_test/supported: Fail
+
+[ (($runtime == dartium || $runtime == drt) && $system == macos) || $system == windows ]
+xhr_test/xhr: Skip # Times out.  Issue 21527
+
+[ $compiler == none && $runtime == dartium ]
+async_test: Timeout # Issue 13719: Please triage this failure.
+element_offset_test/offset: Pass, Fail # Issue 13719, 13296
+
+[ $compiler == dartanalyzer || $compiler == dart2analyzer ]
+custom/document_register_basic_test: StaticWarning
+custom/element_upgrade_test: StaticWarning
+datalistelement_test: StaticWarning
+documentfragment_test: StaticWarning
+element_add_test: StaticWarning
+element_test: StaticWarning
+events_test: StaticWarning
+htmlelement_test: StaticWarning
+localstorage_test: StaticWarning
+mutationobserver_test: StaticWarning
+track_element_constructor_test: StaticWarning
+transferables_test: StaticWarning
+typed_arrays_range_checks_test: StaticWarning
+typing_test: StaticWarning
+webgl_1_test: StaticWarning
+window_nosuchmethod_test: StaticWarning

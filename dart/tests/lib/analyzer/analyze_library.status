@@ -1,0 +1,25 @@
+# Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
+# for details. All rights reserved. Use of this source code is governed by a
+# BSD-style license that can be found in the LICENSE file.
+
+[ $compiler == dartanalyzer || $compiler == dart2analyzer ]
+lib/html/dart2js/html_dart2js: CompileTimeError # Issue 16522
+lib/html/html_common/html_common_dart2js: CompileTimeError # Issue 16522
+lib/_chrome/dart2js/chrome_dart2js: CompileTimeError # Issue 16522
+lib/html/html_common/html_common_dart2js: CompileTimeError # Issue 16522
+lib/indexed_db/dart2js/indexed_db_dart2js: CompileTimeError # Issue 16522
+lib/js/dart2js/js_dart2js: CompileTimeError # Issue 16522
+lib/svg/dart2js/svg_dart2js: CompileTimeError # Issue 16522
+lib/typed_data/dart2js/native_typed_data_dart2js: CompileTimeError # Issue 16522
+lib/typed_data/dart2js/typed_data_dart2js: CompileTimeError # Issue 16522
+lib/web_audio/dart2js/web_audio_dart2js: CompileTimeError # Issue 16522
+lib/web_gl/dart2js/web_gl_dart2js: CompileTimeError # Issue 16522
+lib/web_sql/dart2js/web_sql_dart2js: CompileTimeError # Issue 16522
+
+# The async_await compiler isn't part of the repo so it shouldn't be tested by
+# repo tests.
+lib/_internal/pub_generated/bin/async_compile: Skip
+
+# Pub is starting to use the new async syntax, which isn't supported on the
+# analyzer bots yet.
+lib/_internal/pub/*: Pass, CompileTimeError

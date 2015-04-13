@@ -1,0 +1,108 @@
+import gclient_utils
+import os
+
+path = gclient_utils.FindGclientRoot(os.getcwd())
+execfile(os.path.join(path, 'clank.deps', 'DEPS.chromium')) # Include proper Chromium DEPS.
+
+# Now we need to override some settings and add some new ones.
+
+vars.update({
+  "chromium_url": "http://src.chromium.org/svn",
+  "dartium_base": "http://src.chromium.org",
+  "dartium_chromium_branch": "/chrome/branches/dart/1985/src",
+  "dartium_chromium_revision": "272160",
+  "chromium_base_revision": "269467",
+  "clank_url": "https://chrome-internal.googlesource.com/clank/",
+  # This revision number should be kept in sync with the version of clank that
+  # uses a similar chromium revision to that mentioned just above in
+  # "chromium_revision". You can check which might be a good revision at:
+  # https://chrome-internal.googlesource.com/clank/internal/apps/+log/1916
+  "clank_rev": "1824a75e1d4e757c992ccdcb953b94c9b82bf936",
+  "chrome_internal": "https://chrome-internal.googlesource.com/",
+  # The Dart repository URL is pulled out here so that it can be easily
+  # updated to "https" for committers.
+  "dart_branch": "/branches/1.8",
+  "dartium_webkit_branch": "/blink/branches/dart/1985",
+  "dartium_webkit_revision": "174962",
+  "co19_rev": "@786",
+  "fake_async_rev" : "@38614",
+  "gsutil_rev" : "@33376",
+})
+
+def massage_deps(deps):
+  for key, value in deps.items():
+    if value is None: continue
+
+    if value.startswith('/trunk'):
+      deps[key] = Var("chromium_url") + value
+      continue
+
+    if value.startswith(Var("webkit_trunk")):
+      path, revision = value.split('@') # and svn revision.
+      path = path[len(Var("webkit_trunk")):]  # Strip WebKit repo.
+      value = (Var("dartium_base") + Var("dartium_webkit_branch") + path +
+               '@' + Var("dartium_webkit_revision"))
+      deps[key] = value
+      continue
+
+massage_deps(deps)
+for os_deps in deps_os.values():
+  massage_deps(os_deps)
+
+deps.update({
+  "src":
+    Var("dartium_base") + Var("dartium_chromium_branch") + "@" +
+        Var("dartium_chromium_revision"),
+
+  'src/clank': Var('clank_url') + "internal/apps.git@" + Var("clank_rev"),
+  'src-internal': Var('chrome_internal') + "chrome/src-internal.git",
+
+  "src/dart":
+    Var("dart_branch") + "/dart",
+
+  "src/dart/tests/co19/src": ((Var("googlecode_url") % "co19") +
+      "/trunk/co19/tests/co19/src" + Var("co19_rev")),
+
+  "src/dart/third_party/pkg/fake_async":
+    "/third_party/fake_async" + Var("fake_async_rev"),
+
+  "src/dart/third_party/gsutil":
+    "/third_party/gsutil" + Var("gsutil_rev"),
+})
+
+deps_os['win'].update({
+  "src/chrome/tools/test/reference_build/chrome_win": None
+})
+deps_os['mac'].update({
+  "src/chrome/tools/test/reference_build/chrome_mac": None
+})
+deps_os['unix'].update({
+  "src/chrome/tools/test/reference_build/chrome_linux": None
+})
+
+hooks[0:0] = [{
+    "pattern": "dart",
+    "action": ["python", "src/dartium_tools/generate_dart_vm_version.py"],
+  }]
+
+hooks.append({
+  # Set the revision for a lazily downloaded reference build of chromium,
+  # with which to run perf tests.
+  'name': 'set_reference_build',
+  'pattern': '.',
+  'action': ['python',
+             'src/dart/tools/bots/set_reference_build_revision.py',
+             Var('chromium_base_revision')],
+})
+hooks.append({
+  # Peg the blink version number in LASTCHANGE.blink to be the upstream
+  # webkit_revision number so that chrome remote devtools pulls assets from
+  # the right place.
+  "name": "lastchange",
+  "pattern": ".",
+  "action": ["python", "-c",
+      "f=open('src/build/util/LASTCHANGE.blink','w'); f.write('LASTCHANGE=" +
+      Var('webkit_revision') + "\\n')" ],
+})
+
+target_os = ['android']

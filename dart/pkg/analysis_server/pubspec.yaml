@@ -1,0 +1,18 @@
+name: analysis_server
+version: 0.1.0
+author: Dart Team <misc@dartlang.org>
+description: A server that performs analysis of Dart code over character streams using JSON-RPC encoded information.
+homepage: http://www.dartlang.org
+environment:
+  sdk: '>=1.0.0 <2.0.0'
+dependencies:
+  analyzer: 0.23.0-dev.13
+  args: '>=0.12.1 <0.13.0'
+  logging: any
+  path: any
+  watcher: any
+dev_dependencies:
+  html5lib: any
+  mock: '>=0.10.0 <0.11.0'
+  typed_mock: '>=0.0.4 <1.0.0'
+  unittest: '>=0.10.0 <0.12.0'
